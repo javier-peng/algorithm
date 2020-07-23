@@ -1,5 +1,6 @@
 //来源：转载自https://blog.csdn.net/u010757019/article/details/80958392
 //DFS的递归和非递归实现
+//BFS自写
 #include<iostream>;
 #include<queue>
 #include<stack>
@@ -7,7 +8,7 @@
 using namespace std;
 int iSize = 6;
 char cVertrx[] = { 'A','B','C','D','E','F' };
-bool bAdj[] = { 0,1,1,1,0,0, 1,0,0,0,1,0, 1,0,0,0,0,1, 1,0,0,0,0,0, 0,1,0,0,0,1, 0,0,1,0,1,0 };
+bool bAdj[] = { 0,1,1,1,0,0, 1,0,0,0,1,0, 1,0,0,0,0,1, 1,0,0,0,0,0, 0,1,0,0,0,0, 0,0,1,0,0,0 };
 bool bVisited[6 * 6];
 
 //递归
@@ -54,10 +55,38 @@ void DFS(int v) {
 		}
 	}
 }
+
+//BFS
+void BFS(int v) {
+	if (v<0||v>=iSize)
+	{
+		return;
+	}
+	cout << cVertrx[v] << "\t";
+	bVisited[v] = true;
+	queue<int> q;
+	q.push(v);
+	while (!q.empty())
+	{
+		int node = q.front();
+		q.pop();
+		for (int i=0;i<iSize;i++)
+		{
+			if (bVisited[i]==false && bAdj[node*iSize+i]==true)
+			{
+				cout << cVertrx[i] << "\t";
+				bVisited[i] = true;
+				q.push(i);
+			}
+		}
+	}
+}
+
 int main()
 {
 	memset(bVisited, false, sizeof(bool) * 25);
 	//depthFirstTraversal(0);
-	DFS(0);
+	//DFS(0);
+	BFS(0);
 	return 0;
 }
