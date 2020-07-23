@@ -1,0 +1,63 @@
+//来源：转载自https://blog.csdn.net/u010757019/article/details/80958392
+//DFS的递归和非递归实现
+#include<iostream>;
+#include<queue>
+#include<stack>
+#include<vector>
+using namespace std;
+int iSize = 6;
+char cVertrx[] = { 'A','B','C','D','E','F' };
+bool bAdj[] = { 0,1,1,1,0,0, 1,0,0,0,1,0, 1,0,0,0,0,1, 1,0,0,0,0,0, 0,1,0,0,0,1, 0,0,1,0,1,0 };
+bool bVisited[6 * 6];
+
+//递归
+void depthFirstTraversal(int v) {
+	if (v<0||v>=iSize)
+	{
+		return;
+	}
+	cout << cVertrx[v] << "\t";
+	bVisited[v] = true;
+	for (int i=0;i<iSize;i++)
+	{
+		if (bVisited[i]==false && bAdj[v*iSize+i]==true)
+		{
+			depthFirstTraversal(i);
+		}
+	}
+}
+
+//非递归
+void DFS(int v) {
+	stack<int> s;
+	s.push(v);
+	cout << cVertrx[v] << "\t";
+	bVisited[v] = true;
+	while (s.size())
+	{
+		int index = s.top();
+		bool flag = false;
+		for (int i=0;i<iSize;i++)
+		{
+			if (bVisited[i]==false && bAdj[index*iSize+i]==true)
+			{
+				s.push(i);
+				cout << cVertrx[i] << "\t";
+				bVisited[i] = true;
+				flag = true;
+				break;
+			}
+		}
+		if (flag==false)
+		{
+			s.pop();
+		}
+	}
+}
+int main()
+{
+	memset(bVisited, false, sizeof(bool) * 25);
+	//depthFirstTraversal(0);
+	DFS(0);
+	return 0;
+}
