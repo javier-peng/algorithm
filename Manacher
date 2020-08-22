@@ -1,0 +1,47 @@
+#include<iostream>
+#include<cstring>
+#include<string>
+#include<algorithm>
+using namespace std;
+
+//char s[2010];
+//char s_new[2010];
+int p[2010];
+
+string Init(string s) {
+	int tmp = 0;
+	string s_new(2*s.size()+2,'\0');
+	s_new[tmp++] = '#';
+	for (int i=0;i<s.size();i++)
+	{
+		s_new[tmp++] = s[i];
+		s_new[tmp++] = '#';
+	}
+	return s_new;
+}
+int countResult(string s) {
+	string sNew = Init(s);
+	int max = 0;
+	for (int i=0;i<sNew.size();i++)
+	{
+		p[i] = 1;
+		int left = i - 1;
+		int right = i + 1;
+		while (left >= 0 && right < sNew.size() - 1 && sNew[left] == sNew[right])
+		{
+			p[i]++;
+			left--;
+			right++;
+		}
+		if (p[i]>max)
+		{
+			max = p[i];
+		}
+	}
+	return max - 1;
+}
+int main() {
+	string s = "abbahopxpo";
+	cout << countResult(s) << endl;
+	return 0;
+}
