@@ -21,7 +21,7 @@ vector<int> getNext(string s) {
 }
 
 int KMP(string s,string t) {
-	vector<int> next = getNext(s);
+	vector<int> next = getNext(t);
 	int n = s.size();
 	int m = t.size();
 	int i = 0;
