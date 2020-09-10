@@ -1,0 +1,70 @@
+#include<iostream>
+#include<vector>
+#include<cmath>
+#include<algorithm>
+using namespace std;
+
+void bubbleSort(int arr[],int len) {
+	for (int i=0;i<len-1;i++)
+	{
+		for (int j=0;j<len-i-1;j++)
+		{
+			if (arr[j]>arr[j+1])
+			{
+				int tmp = arr[j];
+				arr[j] = arr[j + 1];
+				arr[j + 1] = tmp;
+			}
+		}
+	}
+}
+
+void quickSort(int arr[], int left, int right) {
+	if (left>=right)
+	{
+		return;
+	}
+	int i, j, base;
+	i = left, j = right;
+	base = arr[left];
+	while (i<j)
+	{
+		while (arr[j]>=base && i<j)
+		{
+			j--;
+		}
+		if (i<j)
+		{
+			arr[i++] = arr[j];
+		}
+		while (arr[i]<=base && i<j)
+		{
+			i++;
+		}
+		if (i<j)
+		{
+			arr[j--] = arr[i];
+		}
+	}
+	arr[i] = base;
+	quickSort(arr, left, i - 1);
+	quickSort(arr, i + 1, right);
+}
+
+int main(void)
+{
+	int arr[] = { 6,12,7,9,3,4,5,10,8 };
+	int iSize = sizeof(arr) / sizeof(int);
+	for (int i=0;i<iSize;i++)
+	{
+		cout << arr[i] << " ";
+	}
+	cout << endl;
+	bubbleSort(arr,iSize);
+	//quickSort(arr, 0, iSize - 1);
+	for (int i = 0; i < iSize; i++)
+	{
+		cout << arr[i] << " ";
+	}
+	return 0;
+}
