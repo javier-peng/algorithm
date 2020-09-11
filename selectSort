@@ -1,0 +1,38 @@
+#include<iostream>
+#include<vector>
+#include<cmath>
+#include<algorithm>
+using namespace std;
+
+void selectSort(int arr[],int len) {
+	int minIndex = 0;
+	int tmp = 0;
+	for (int i=0;i<len-1;i++)
+	{
+		minIndex = i;
+		for (int j=i+1;j<len;j++)
+		{
+			if (arr[j]<arr[minIndex])
+			{
+				minIndex = j;
+			}
+		}
+		tmp = arr[i];
+		arr[i] = arr[minIndex];
+		arr[minIndex] = tmp;
+	}
+}
+int main() {
+	int arr[] = { 1,85,5,3,45,4,6,9 };
+	int len = sizeof(arr) / sizeof(int);
+	for (int i=0;i<len;i++)
+	{
+		cout << arr[i] << " ";
+	}
+	cout << endl;
+	selectSort(arr, len);
+	for (int i = 0; i < len; i++)
+	{
+		cout << arr[i] << " ";
+	}
+}
